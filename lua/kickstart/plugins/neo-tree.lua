@@ -15,6 +15,13 @@ return {
   },
   opts = {
     filesystem = {
+      filtered_items = {
+        hide_dotfiles = false,
+        hide_by_name = {
+          'node_modules',
+          '.git',
+        },
+      },
       window = {
         mappings = {
           ['\\'] = 'close_window',

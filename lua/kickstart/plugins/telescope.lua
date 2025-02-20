@@ -30,6 +30,50 @@ return {
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
+    keys = {
+      {
+        '<C-p>',
+        function()
+          require('telescope.builtin').find_files()
+        end,
+        desc = 'Grep string under cursor',
+      },
+      {
+        '<leader>*',
+        function()
+          require('telescope.builtin').grep_string()
+        end,
+        desc = 'Grep string under cursor',
+      },
+      {
+        '<leader>ts',
+        function()
+          require('telescope.builtin').lsp_document_symbols()
+        end,
+        desc = 'LSP Document Symbols',
+      },
+      {
+        '<leader>td',
+        function()
+          require('telescope.builtin').diagnostics()
+        end,
+        desc = 'Telescope Diagnostics',
+      },
+      {
+        '<leader>tt',
+        function()
+          require('telescope.builtin').treesitter()
+        end,
+        desc = 'Telescope Treesitter',
+      },
+      {
+        '<leader>tic',
+        function()
+          require('telescope.builtin').lsp_incoming_calls()
+        end,
+        desc = 'LSP Incoming Calls',
+      },
+    },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
       -- it can fuzzy find! It's more than just a "file finder", it can search

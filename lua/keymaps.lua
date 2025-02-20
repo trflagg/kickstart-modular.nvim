@@ -51,3 +51,6 @@ keymap('n', '<leader>od', ':set background=dark<CR>')
 
 keymap('n', '<leader>tr', ':LspRestart<CR>', silent)
 keymap('n', '<leader>tp', 'ggVG"*y')
+
+-- open lazy install
+keymap('n', '<leader>li', ':Lazy')
