@@ -1,48 +1,53 @@
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+-- Shorten functon name
+local keymap = vim.keymap.set
+-- Silent keymap option
+local opts = { silent = true }
+local silent = { silent = true }
+local noremap = { noremap = true }
+local noremapAndSilent = { silent = true, noremap = true }
 
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+keymap('i', 'jk', '<ESC>', { noremap = true })
 
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
+keymap('n', 'B', '^', noremap)
+keymap('n', 'E', '$', noremap)
+-- tmux movement
+keymap('n', '<c-j>', '<c-w>j', noremap)
+keymap('n', '<c-h>', '<c-w>h', noremap)
+keymap('n', '<c-k>', '<c-w>k', noremap)
+keymap('n', '<c-l>', '<c-w>l', noremap)
 --
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+-- handy rename
+keymap('n', '<leader>rn', '"zye:%s/<C-R>z/')
 
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+-- console log
+keymap('n', '<leader>tl', "zyeoconsole.log(`taylor  <esc>Pa: ${JSON.stringify(<esc>pa, null, ' ')}`);<esc>")
+keymap('n', '<leader>tc', 'zyeoconsole.log(`taylor <esc>pa `);<esc>F`i')
+keymap('n', '<leader>tk', 'zyeoconsole.time(`<esc>pa `);<esc>F`i')
+-- Remove highlights
+keymap('n', '<ESC>', ':noh<CR><CR>', silent)
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- Buffers
+keymap('n', '<Tab>', ':b#<CR>', silent)
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
+-- Colors
+keymap('n', '<leader>tb', ':exec &bg=="light"? "set bg=dark" : "set bg=light"<CR>', silent)
 
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
+-- Toggle quicklist
+keymap('n', '<leader>q', "<cmd>lua require('utils').toggle_quicklist()<CR>", silent)
 
--- vim: ts=2 sts=2 sw=2 et
+-- because I have a hard time hitting %
+keymap('n', '<c-s>', '%', silent)
+
+keymap('n', '<leader>gy', ':Goyo<CR>:highlight Normal guibg=Black guifg=White<CR>', silent)
+
+-- close quickflix
+keymap('n', '<c-w>q', ':cclose<CR>', silent)
+
+keymap('n', '<leader>ol', ':set background=light<CR>')
+keymap('n', '<leader>od', ':set background=dark<CR>')
+
+keymap('n', '<leader>tr', ':LspRestart<CR>', silent)
+keymap('n', '<leader>tp', 'ggVG"*y')
