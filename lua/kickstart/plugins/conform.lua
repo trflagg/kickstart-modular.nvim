@@ -27,12 +27,14 @@ return {
           lsp_format_opt = 'fallback'
         end
         return {
-          timeout_ms = 500,
+          timeout_ms = 1000,
           lsp_format = lsp_format_opt,
         }
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        ruby = { 'rubocop' },
+        eruby = { 'erb_format' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --

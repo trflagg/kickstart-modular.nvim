@@ -27,3 +27,6 @@ vim.opt.wrap = true
 vim.opt.clipboard = ''
 
 vim.opt.laststatus = 3
+
+vim.g.lazyvim_ruby_lsp = 'ruby_lsp'
+vim.g.lazyvim_ruby_formatter = 'rubocop'
