@@ -54,3 +54,6 @@ keymap('n', '<leader>tp', 'ggVG"*y')
 
 -- open lazy install
 keymap('n', '<leader>li', ':Lazy')
+
+keymap('n', '<leader>cd', 'vim.diagnostic.open_float')
+keymap('n', '<leader>cl', '<cmd>LspInfo<cr>')

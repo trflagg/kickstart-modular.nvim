@@ -11,26 +11,24 @@ return {
     -- add any opts here
     -- for example
     provider = 'openai',
-    openai = {
-      endpoint = 'https://api.openai.com/v1',
-      model = 'gpt-4o', -- your desired model (or use gpt-4o, etc.)
-      timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-      temperature = 0,
-      max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-      api_key_name = 'MY_OPENAI_API_KEY',
-      --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+    providers = {
+      openai = {
+        endpoint = 'https://api.openai.com/v1',
+        model = 'gpt-4o', -- your desired model (or use gpt-4o, etc.)
+        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+        extra_request_body = {
+          temperature = 0,
+          max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
+        },
+        api_key_name = 'MY_OPENAI_API_KEY',
+        --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+      },
     },
     behaviour = {
       enable_cursor_planning_mode = true,
     },
-    rag_service = {
-      enabled = true, -- Enables the RAG service
-      host_mount = os.getenv 'HOME', -- Host mount path for the rag service
-      api_key_name = 'MY_OPENAI_API_KEY',
-      provider = 'openai', -- The provider to use for RAG service (e.g. openai or ollama)
-      llm_model = '', -- The LLM model to use for RAG service
-      embed_model = '', -- The embedding model to use for RAG service
-      endpoint = 'https://api.openai.com/v1', -- The API endpoint for RAG service
+    rag_service = { -- RAG Service configuration
+      enabled = false, -- Enables the RAG service
     },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
